@@ -1,8 +1,6 @@
-import * as React from "react";
+import React from "react";
 
 const Console = () => {
-    return (
-        <div>console</div>
-    );
-}
+  return <div>console</div>;
+};
 export default Console;

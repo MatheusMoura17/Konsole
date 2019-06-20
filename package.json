@@ -18,11 +18,16 @@
   },
   "homepage": "https://github.com/MatheusMoura17/Konsole#readme",
   "dependencies": {
+    "@types/react": "^16.8.21",
+    "@types/react-dom": "^16.8.4",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint-config-airbnb-typescript": "^4.0.0",
     "parcel": "^1.12.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
     "eslint": "^5.16.0",
     "typescript": "^3.5.2"
   }
