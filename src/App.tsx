@@ -8,7 +8,7 @@ import Controller from "./pages/Controller";
 /** Aplição principal */
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Konsole">
       <Route path="/" exact component={Home} />
       <Route path="/console/" component={Console} />
       <Route path="/controller/" component={Controller} />

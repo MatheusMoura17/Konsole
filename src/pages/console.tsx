@@ -14,8 +14,8 @@ const Console = () => {
 
   return (
     <div>
-      {peerId === "" && <div>Criando uma conexão...</div>}
-      {peerId !== "" && <QRCode value={peerId} />}
+      {!peerId && <div>Criando uma conexão...</div>}
+      {peerId && <QRCode value={peerId} />}
     </div>
   );
 };

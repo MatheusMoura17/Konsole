@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel serve src/index.html --open",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prebuild": "rm -rf dist/",
+    "build": "parcel build src/index.html --public-url ./",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist/"
   },
   "repository": {
     "type": "git",
@@ -22,15 +25,18 @@
     "@types/qrcode.react": "^0.8.2",
     "@types/react": "^16.8.21",
     "@types/react-dom": "^16.8.4",
+    "@types/react-qr-reader": "^2.1.2",
     "@types/react-router-dom": "^4.3.4",
     "@types/webrtc": "^0.0.25",
     "@typescript-eslint/parser": "^1.10.2",
     "eslint-config-airbnb-typescript": "^4.0.0",
+    "gh-pages": "^2.0.1",
     "parcel": "^1.12.3",
     "peerjs": "^1.0.0",
     "qrcode.react": "^0.9.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-qr-reader": "^2.2.1",
     "react-router-dom": "^5.0.1"
   },
   "devDependencies": {
