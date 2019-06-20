@@ -18,12 +18,17 @@
   },
   "homepage": "https://github.com/MatheusMoura17/Konsole#readme",
   "dependencies": {
+    "@types/peerjs": "^0.0.30",
+    "@types/qrcode.react": "^0.8.2",
     "@types/react": "^16.8.21",
     "@types/react-dom": "^16.8.4",
     "@types/react-router-dom": "^4.3.4",
+    "@types/webrtc": "^0.0.25",
     "@typescript-eslint/parser": "^1.10.2",
     "eslint-config-airbnb-typescript": "^4.0.0",
     "parcel": "^1.12.3",
+    "peerjs": "^1.0.0",
+    "qrcode.react": "^0.9.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1"
