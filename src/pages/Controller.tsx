@@ -5,9 +5,9 @@ import Network from "../services/Network";
 
 const Controller = () => {
   const [connectionId, setConnectionId] = React.useState("");
+  const [isConnecting, setIsConnecting] = React.useState(false);
   const [isConnected, setIsConnected] = React.useState(false);
-  const [remoteId, setRemoteId] = React.useState("");
-  let network: Network;
+  const [isConnectonLost, setIsConnectionLost] = React.useState(false);
 
   React.useEffect(() => {
     this.network = new Network();
@@ -16,15 +16,22 @@ const Controller = () => {
     };
     this.network.callbackConnectedToMaster = () => {
       setIsConnected(true);
+      setIsConnectionLost(false);
+      setIsConnecting(false);
     };
     this.network.callbackDisconnectedToMaster = () => {
       setIsConnected(false);
+      setIsConnectionLost(true);
+      setIsConnecting(false);
     };
   }, []);
 
   const connect = (id: string) => {
+    setIsConnected(false);
+    setIsConnectionLost(false);
+    setIsConnecting(true);
+
     this.network.connect(id);
-    setRemoteId(id);
   };
 
   const handleQrScan = data => {
@@ -49,7 +56,7 @@ const Controller = () => {
   return (
     <div>
       {!connectionId && <div>Registrando peer...</div>}
-      {connectionId && !remoteId && (
+      {connectionId && !isConnected && (
         <div>
           <QrReader
             delay={300}
@@ -60,7 +67,9 @@ const Controller = () => {
           <input onKeyPress={handleInputKeyPress} />
         </div>
       )}
-      {isConnected ? <div>Conectado</div> : <div>Não conectado</div>}
+      {isConnecting && <div>Conectando...</div>}
+      {isConnected && <div>Conectado</div>}
+      {isConnectonLost && <div>Falha ao conectar</div>}
     </div>
   );
 };
