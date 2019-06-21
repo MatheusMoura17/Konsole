@@ -9,16 +9,36 @@ const log = debug("Network");
 export default class Network {
   private mainPeer: Peer;
   private users: NetworkUserData[] = [];
+  private connection?: DataConnection;
 
+  public callbackConnectedToMaster: () => void;
+  public callbackDisconnectedToMaster: () => void;
   public callbackReady: (id: string) => void;
   public callbackUsersUpdated: (users: NetworkUserData[]) => void;
 
-  constructor(id?: string) {
-    this.mainPeer = new Peer(id);
+  constructor() {
+    this.mainPeer = new Peer();
     log("Obtendo id...");
     this.mainPeer.on("open", this.onOpen);
     this.mainPeer.on("connection", this.onConnection);
   }
+
+  /** Conecta a um peer remoto */
+  public connect = (id: string) => {
+    log(`Conectando a ${id}`);
+    console.log(this.mainPeer);
+    this.connection = this.mainPeer.connect(id);
+    this.connection.on("open", () => {
+      if (this.callbackConnectedToMaster) {
+        this.callbackConnectedToMaster();
+      }
+    });
+    this.connection.on("close", () => {
+      if (this.callbackDisconnectedToMaster) {
+        this.callbackDisconnectedToMaster();
+      }
+    });
+  };
 
   private onOpen = (id: string) => {
     log(`Id obtido ${id}`);
@@ -37,6 +57,7 @@ export default class Network {
       log(`comando recebido: ${JSON.stringify(data)}`);
       if (data.action === "setup") {
         user.name = data.userName;
+        if (this.callbackUsersUpdated) this.callbackUsersUpdated(this.users);
       }
     });
     this.users = this.users.concat(user);

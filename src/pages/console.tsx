@@ -4,20 +4,22 @@ import QRCode from "qrcode.react";
 import Network from "../services/Network";
 import { NetworkUserData } from "../services/types";
 
-const network = new Network();
-
 /** Componente do console, aqui temos a base de conexão com peerjs */
 const Console = () => {
   const [connectionId, setConnectionId] = React.useState();
   const [users, setUsers] = React.useState([]);
+  let network: Network;
 
-  network.callbackReady = (id: string) => {
-    setConnectionId(id);
-  };
+  React.useEffect(() => {
+    network = new Network();
+    network.callbackReady = (id: string) => {
+      setConnectionId(id);
+    };
 
-  network.callbackUsersUpdated = (users: NetworkUserData[]) => {
-    setUsers([...users]);
-  };
+    network.callbackUsersUpdated = (users: NetworkUserData[]) => {
+      setUsers([...users]);
+    };
+  }, []);
 
   return (
     <div>
