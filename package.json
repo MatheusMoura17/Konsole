@@ -29,6 +29,7 @@
     "@types/react-router-dom": "^4.3.4",
     "@types/webrtc": "^0.0.25",
     "@typescript-eslint/parser": "^1.10.2",
+    "debug": "^4.1.1",
     "eslint-config-airbnb-typescript": "^4.0.0",
     "gh-pages": "^2.0.1",
     "parcel": "^1.12.3",
