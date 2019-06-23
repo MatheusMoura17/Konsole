@@ -3,6 +3,7 @@ import QRCode from "qrcode.react";
 
 import Network from "../services/Network";
 import { NetworkUserData } from "../services/types";
+import { KonsoleWrapper } from "../services/KonsoleWrapper";
 
 /** Componente do console, aqui temos a base de conexão com peerjs */
 const Console = () => {
@@ -18,6 +19,7 @@ const Console = () => {
 
     network.callbackUsersUpdated = (users: NetworkUserData[]) => {
       setUsers([...users]);
+      KonsoleWrapper.onUsersUpdated(users);
     };
   }, []);
 
@@ -36,8 +38,7 @@ const Console = () => {
               {users.map((user: NetworkUserData) => {
                 return (
                   <li key={user.id}>
-                    {user.id} - {user.name} -{" "}
-                    {JSON.stringify(user.joystickData)}
+                    {user.id} - {user.name}
                   </li>
                 );
               })}
