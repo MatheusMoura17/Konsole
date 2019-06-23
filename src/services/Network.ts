@@ -23,6 +23,11 @@ export default class Network {
     this.mainPeer.on("connection", this.onConnection);
   }
 
+  public send = (command: NetworkCommand) => {
+    log(`Enviando ${JSON.stringify(command)}`);
+    this.connection.send(command);
+  };
+
   /** Conecta a um peer remoto */
   public connect = (id: string) => {
     log(`Conectando a ${id}`);
@@ -50,14 +55,28 @@ export default class Network {
     log(`Peer ${peer} conectado`);
     const user: NetworkUserData = {
       id: peer,
-      name: "anonymous"
+      name: "anonymous",
+      joystickData: {
+        x: 0,
+        y: 0,
+        home: false,
+        a: false,
+        b: false
+      }
     };
     dataConnection.on("close", () => this.onClose(user));
     dataConnection.on("data", (data: NetworkCommand) => {
       log(`comando recebido: ${JSON.stringify(data)}`);
-      if (data.action === "setup") {
-        user.name = data.userName;
-        if (this.callbackUsersUpdated) this.callbackUsersUpdated(this.users);
+      switch (data.action) {
+        case "setup": {
+          user.name = data.userName;
+          if (this.callbackUsersUpdated) this.callbackUsersUpdated(this.users);
+          break;
+        }
+        case "joystick": {
+          user.joystickData = data.joystickData;
+          if (user.callbackJoystickUpdated) user.callbackJoystickUpdated();
+        }
       }
     });
     this.users = this.users.concat(user);

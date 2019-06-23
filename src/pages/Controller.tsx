@@ -3,6 +3,7 @@ import QrReader from "react-qr-reader";
 
 import Network from "../services/Network";
 import Joystick from "../components/Joystick";
+import { JoystickData } from "../services/types";
 
 const Controller = () => {
   const [connectionId, setConnectionId] = React.useState("");
@@ -13,7 +14,7 @@ const Controller = () => {
   React.useEffect(() => {
     this.network = new Network();
     this.network.callbackReady = (id: string) => {
-      // setConnectionId(id);
+      setConnectionId(id);
     };
     this.network.callbackConnectedToMaster = () => {
       setIsConnected(true);
@@ -32,7 +33,7 @@ const Controller = () => {
     setIsConnectionLost(false);
     setIsConnecting(true);
 
-    this.network.connect(id);
+    this.connection = this.network.connect(id);
   };
 
   const handleQrScan = data => {
@@ -54,6 +55,14 @@ const Controller = () => {
     console.error(err);
   };
 
+  /** O estado dos botões foi alterado */
+  const handleJoystickUpdate = (joystickData: JoystickData) => {
+    this.network.send({
+      action: "joystick",
+      joystickData
+    });
+  };
+
   return (
     <div>
       {!connectionId && <div>Registrando peer...</div>}
@@ -69,9 +78,8 @@ const Controller = () => {
         </div>
       )}
       {isConnecting && <div>Conectando...</div>}
-      {isConnected && <div>Conectado</div>}
+      {isConnected && <Joystick callbackUpdated={handleJoystickUpdate} />}
       {isConnectonLost && <div>Falha ao conectar</div>}
-      <Joystick />
     </div>
   );
 };

@@ -36,7 +36,8 @@ const Console = () => {
               {users.map((user: NetworkUserData) => {
                 return (
                   <li key={user.id}>
-                    {user.id} - {user.name}
+                    {user.id} - {user.name} -{" "}
+                    {JSON.stringify(user.joystickData)}
                   </li>
                 );
               })}

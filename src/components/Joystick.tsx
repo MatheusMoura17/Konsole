@@ -1,11 +1,35 @@
 import * as React from "react";
-import { buttonName } from "../services/types";
+import { buttonName, JoystickData } from "../services/types";
 import interact from "interactjs";
 
+interface JoystickProps {
+  callbackUpdated: (joystickData: JoystickData) => void;
+}
+
 /** Controles do game */
-const Joystick = () => {
-  const handleButtonClick = (name: buttonName) => {
-    console.log(name);
+const Joystick = (props: JoystickProps) => {
+  const [joystickData, setJoystickData] = React.useState({
+    x: 0,
+    y: 0,
+    a: false,
+    b: false,
+    home: false
+  });
+
+  const handleButtonDown = (name: buttonName) => {
+    setJoystickData(previousData => {
+      previousData[name] = true;
+      return previousData;
+    });
+    props.callbackUpdated(joystickData);
+  };
+
+  const handleButtonUp = (name: buttonName) => {
+    setJoystickData(previousData => {
+      previousData[name] = false;
+      return previousData;
+    });
+    props.callbackUpdated(joystickData);
   };
 
   React.useEffect(() => {
@@ -20,25 +44,17 @@ const Joystick = () => {
       ],
       onend: event => {
         const { target } = event;
-        // translate the element
         target.style.webkitTransform = target.style.transform =
           "translate(37px, 37px)";
-
-        // update the posiion attributes
         target.setAttribute("data-x", 37);
         target.setAttribute("data-y", 37);
       },
-      // call this function on every dragmove event
       onmove: event => {
         const { target } = event;
         const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
         const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
-
-        // translate the element
         target.style.webkitTransform = target.style.transform =
           "translate(" + x + "px, " + y + "px)";
-
-        // update the posiion attributes
         target.setAttribute("data-x", x);
         target.setAttribute("data-y", y);
       }
@@ -48,7 +64,7 @@ const Joystick = () => {
   return (
     <div>
       {/** Sticker field da esquerda */}
-      <div>
+      <div style={{ position: "absolute", left: 0, bottom: 0, padding: 30 }}>
         <div
           style={{
             width: "150px",
@@ -73,13 +89,45 @@ const Joystick = () => {
         </div>
       </div>
       {/** Botões do centro da tela */}
-      <div>
-        <button onClick={() => handleButtonClick("HOME")}>Home</button>
+      <div
+        style={{
+          position: "absolute",
+          left: "calc(50% - 50px)",
+          width: "100px",
+          top: 0,
+          padding: 30
+        }}
+      >
+        <button
+          onMouseDown={() => handleButtonDown("home")}
+          onMouseUp={() => handleButtonUp("home")}
+        >
+          Home
+        </button>
       </div>
       {/** Botões da direita da tela */}
-      <div>
-        <button onClick={() => handleButtonClick("A")}>A</button>
-        <button onClick={() => handleButtonClick("B")}>B</button>
+      <div
+        style={{
+          position: "absolute",
+          right: 0,
+          bottom: 0,
+          padding: 30
+        }}
+      >
+        <button
+          style={{ width: 100, height: 100, marginRight: 10 }}
+          onMouseDown={() => handleButtonDown("a")}
+          onMouseUp={() => handleButtonUp("a")}
+        >
+          A
+        </button>
+        <button
+          style={{ width: 100, height: 100 }}
+          onMouseDown={() => handleButtonDown("b")}
+          onMouseUp={() => handleButtonUp("b")}
+        >
+          B
+        </button>
       </div>
     </div>
   );
