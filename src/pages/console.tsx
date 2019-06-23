@@ -15,6 +15,7 @@ const Console = () => {
     network = new Network();
     network.callbackReady = (id: string) => {
       setConnectionId(id);
+      loadGame("three-js-jumper");
     };
 
     network.callbackUsersUpdated = (users: NetworkUserData[]) => {
@@ -22,6 +23,13 @@ const Console = () => {
       KonsoleWrapper.onUsersUpdated(users);
     };
   }, []);
+
+  const loadGame = async (name: string) => {
+    const renderer = document.getElementById("konsoleGameRenderer");
+    const response = await fetch(`/games/three-js-jumper`);
+    const text = await response.text();
+    renderer.innerHTML = text;
+  };
 
   return (
     <div>
@@ -46,6 +54,7 @@ const Console = () => {
           </div>
         </div>
       )}
+      <div id="konsoleGameRenderer" />
     </div>
   );
 };

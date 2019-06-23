@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "staticFiles": {
+    "staticPath": "static",
+    "watcherGlob": "**"
+  },
   "scripts": {
     "start": "parcel serve src/index.html --open",
     "prebuild": "rm -rf dist/",
@@ -34,6 +38,7 @@
     "gh-pages": "^2.0.1",
     "interactjs": "^1.4.0-rc.13",
     "parcel": "^1.12.3",
+    "parcel-plugin-static-files-copy": "^2.1.2",
     "peerjs": "^1.0.0",
     "qrcode.react": "^0.9.3",
     "react": "^16.8.6",
