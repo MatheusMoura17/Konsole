@@ -11,7 +11,7 @@ export interface JoystickData {
 export interface NetworkUserData {
   name: string;
   id: string;
-  callbackJoystickUpdated?: (joystickData: JoystickData) => void;
+  onJoystickUpdate?: (joystickData: JoystickData) => void;
 }
 export interface NetworkCommand {
   action: "setup" | "joystick";

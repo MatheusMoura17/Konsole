@@ -8,27 +8,34 @@ import { KonsoleWrapper } from "../services/KonsoleWrapper";
 /** Componente do console, aqui temos a base de conexão com peerjs */
 const Console = () => {
   const [connectionId, setConnectionId] = React.useState();
-  const [users, setUsers] = React.useState([]);
   let network: Network;
 
   React.useEffect(() => {
     network = new Network();
     network.callbackReady = (id: string) => {
       setConnectionId(id);
-      loadGame("three-js-jumper");
     };
 
-    network.callbackUsersUpdated = (users: NetworkUserData[]) => {
-      setUsers([...users]);
-      KonsoleWrapper.onUsersUpdated(users);
+    KonsoleWrapper.rendererElem = document.getElementById(
+      "konsoleGameRenderer"
+    );
+
+    network.callbackUsersUpdated = (userList: NetworkUserData[]) => {
+      KonsoleWrapper.onUsersUpdate(userList);
     };
   }, []);
 
+  const handleClickLoadGame = () => {
+    loadGame("joystick-debugger");
+  };
+
   const loadGame = async (name: string) => {
-    const renderer = document.getElementById("konsoleGameRenderer");
-    const response = await fetch(`/games/three-js-jumper`);
-    const text = await response.text();
-    renderer.innerHTML = text;
+    const gameScript = document.createElement("script");
+    gameScript.src = `/games/${name}/index.js`;
+    gameScript.addEventListener("load", () => {
+      KonsoleWrapper.onSetup();
+    });
+    document.body.appendChild(gameScript);
   };
 
   return (
@@ -40,21 +47,11 @@ const Console = () => {
             <QRCode size={250} value={connectionId} />
             <div>{connectionId}</div>
           </div>
-          <div>
-            Usuários conectados:
-            <ul>
-              {users.map((user: NetworkUserData) => {
-                return (
-                  <li key={user.id}>
-                    {user.id} - {user.name}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
         </div>
       )}
-      <div id="konsoleGameRenderer" />
+      <div id="konsoleGameRenderer">
+        <button onClick={handleClickLoadGame}>Carregar Jogo</button>
+      </div>
     </div>
   );
 };

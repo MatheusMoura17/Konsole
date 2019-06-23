@@ -1,7 +1,7 @@
 import Peer, { DataConnection } from "peerjs";
 import debug from "debug";
 
-import { NetworkUserData, NetworkCommand } from "./types";
+import { NetworkUserData, NetworkCommand, JoystickData } from "./types";
 
 const log = debug("Network");
 
@@ -55,14 +55,7 @@ export default class Network {
     log(`Peer ${peer} conectado`);
     const user: NetworkUserData = {
       id: peer,
-      name: "anonymous",
-      joystickData: {
-        x: 0,
-        y: 0,
-        home: false,
-        a: false,
-        b: false
-      }
+      name: "anonymous"
     };
     dataConnection.on("close", () => this.onClose(user));
     dataConnection.on("data", (data: NetworkCommand) => {
@@ -74,8 +67,7 @@ export default class Network {
           break;
         }
         case "joystick": {
-          user.joystickData = data.joystickData;
-          if (user.callbackJoystickUpdated) user.callbackJoystickUpdated();
+          if (user.onJoystickUpdate) user.onJoystickUpdate(data.joystickData);
         }
       }
     });

@@ -1,8 +1,9 @@
 import { NetworkUserData } from "./types";
 
 export const KonsoleWrapper = {
-  onUsersUpdated: (users: NetworkUserData[]) => {},
-  rendererElem: document.querySelector("#konsoleGameRenderer")
+  onSetup: () => {},
+  onUsersUpdate: (users: NetworkUserData[]) => {},
+  rendererElem: document.body
 };
 
 // @ts-ignore
