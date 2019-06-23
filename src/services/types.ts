@@ -1,3 +1,5 @@
+export type buttonName = "A" | "B" | "HOME";
+
 export interface NetworkUserData {
   name: string;
   id: string;
