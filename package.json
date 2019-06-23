@@ -32,6 +32,7 @@
     "debug": "^4.1.1",
     "eslint-config-airbnb-typescript": "^4.0.0",
     "gh-pages": "^2.0.1",
+    "interactjs": "^1.4.0-rc.13",
     "parcel": "^1.12.3",
     "peerjs": "^1.0.0",
     "qrcode.react": "^0.9.3",

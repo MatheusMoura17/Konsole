@@ -2,6 +2,7 @@ import * as React from "react";
 import QrReader from "react-qr-reader";
 
 import Network from "../services/Network";
+import Joystick from "../components/Joystick";
 
 const Controller = () => {
   const [connectionId, setConnectionId] = React.useState("");
@@ -12,7 +13,7 @@ const Controller = () => {
   React.useEffect(() => {
     this.network = new Network();
     this.network.callbackReady = (id: string) => {
-      setConnectionId(id);
+      // setConnectionId(id);
     };
     this.network.callbackConnectedToMaster = () => {
       setIsConnected(true);
@@ -70,6 +71,7 @@ const Controller = () => {
       {isConnecting && <div>Conectando...</div>}
       {isConnected && <div>Conectado</div>}
       {isConnectonLost && <div>Falha ao conectar</div>}
+      <Joystick />
     </div>
   );
 };
