@@ -34,11 +34,17 @@
     "interactjs": "^1.4.0-rc.13",
     "parcel": "^1.12.3",
     "parcel-plugin-static-files-copy": "^2.1.2",
-    "peerjs": "^1.0.0"
+    "peerjs": "^1.0.0",
+    "vue": "^2.6.10",
+    "vue-hot-reload-api": "^2.3.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@vue/component-compiler-utils": "^3.0.0",
     "eslint": "^5.16.0",
-    "typescript": "^3.5.2"
+    "pug": "^2.0.4",
+    "sass": "^1.22.1",
+    "typescript": "^3.5.2",
+    "vue-template-compiler": "^2.6.10"
   }
 }
