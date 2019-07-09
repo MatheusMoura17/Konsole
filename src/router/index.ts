@@ -4,7 +4,7 @@ import Router from "vue-router";
 Vue.use(Router);
 
 import console from "../components/console/console.vue";
-import controller from "../components/controller/controller.vue";
+import Controller from "../views/Controller";
 
 const routes = [
   {
@@ -15,7 +15,7 @@ const routes = [
   {
     name: "controller",
     path: "/controller",
-    component: controller
+    component: Controller
   },
   { path: "*", redirect: "" }
 ];

@@ -17,6 +17,7 @@ const state: State.Root = {
     { label: "Twitter", link: "https://twitter.com/vuejs" }
   ]
 };
+
 const mutations = {};
 const actions = {};
 const getters = {};
