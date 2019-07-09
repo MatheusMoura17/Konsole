@@ -3,14 +3,14 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
-import console from "../components/console/console.vue";
-import Controller from "../views/Controller";
+import Console from "../views/Console.vue";
+import Controller from "../views/Controller.vue";
 
 const routes = [
   {
     name: "console",
     path: "/console",
-    component: console
+    component: Console
   },
   {
     name: "controller",
