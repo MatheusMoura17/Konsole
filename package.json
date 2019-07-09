@@ -24,6 +24,7 @@
   "homepage": "https://github.com/MatheusMoura17/Konsole#readme",
   "dependencies": {
     "@types/peerjs": "^0.0.30",
+    "@types/vue-router": "^2.0.0",
     "@types/webrtc": "^0.0.25",
     "@typescript-eslint/parser": "^1.10.2",
     "debug": "^4.1.1",
