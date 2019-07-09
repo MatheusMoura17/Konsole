@@ -10,9 +10,7 @@
   "scripts": {
     "start": "parcel serve src/index.html --open",
     "prebuild": "rm -rf dist/",
-    "build": "parcel build src/index.html --public-url ./",
-    "predeploy": "yarn build",
-    "deploy": "gh-pages -d dist/"
+    "build": "parcel build src/index.html --public-url ./"
   },
   "repository": {
     "type": "git",
@@ -35,14 +33,13 @@
     "@typescript-eslint/parser": "^1.10.2",
     "debug": "^4.1.1",
     "eslint-config-airbnb-typescript": "^4.0.0",
-    "gh-pages": "^2.0.1",
     "interactjs": "^1.4.0-rc.13",
     "parcel": "^1.12.3",
     "parcel-plugin-static-files-copy": "^2.1.2",
     "peerjs": "^1.0.0",
     "qrcode.react": "^0.9.3",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^15.5.3 || ^16.0.0",
+    "react-dom": "~16",
     "react-qr-reader": "^2.2.1",
     "react-router-dom": "^5.0.1"
   },
