@@ -1,15 +1,14 @@
 <template>
-  <Joystick />
+  <div>
+    <div>left</div>
+    <div>right</div>
+  </div>
 </template>
 
 <script src ="./index.ts" lang="ts">
 import Vue from "vue";
-import Joystick from "../components/Joystick.vue";
 
 export default Vue.extend({
-  name: "Controller",
-  components: {
-    Joystick
-  }
+  name: "Joystick"
 });
 </script>
