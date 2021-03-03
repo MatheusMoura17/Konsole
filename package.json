@@ -43,7 +43,7 @@
     "@typescript-eslint/eslint-plugin": "^1.10.2",
     "@vue/component-compiler-utils": "^3.0.0",
     "eslint": "^5.16.0",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "sass": "^1.22.1",
     "typescript": "^3.5.2",
     "vue-template-compiler": "^2.6.10"
